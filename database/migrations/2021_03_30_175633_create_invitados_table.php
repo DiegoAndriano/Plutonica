@@ -16,7 +16,7 @@ class CreateInvitadosTable extends Migration
         Schema::create('invitados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
-            $table->string('email')->nullable()->unique();cvx
+            $table->string('email')->nullable()->unique();
             $table->string('passcode');
             $table->timestamps();
         });
