@@ -1,0 +1,18 @@
+[
+    {
+        "titulo" : "My first post",
+        "tituloGuiones" : "my-first-post",
+        "descripcion" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis eos ex explicabo fugit laboriosam nihil officia quia quos. Aperiam beatae culpa deleniti ex ipsam labore laudantium minima mollitia odio sunt?",
+        "post" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis eos ex explicabo fugit laboriosam nihil officia quia quos. Aperiam beatae culpa deleniti ex ipsam labore laudantium minima mollitia odio sunt?",
+        "estado" : "false",
+        "pinned" : false
+    },
+    {
+        "titulo" : "My second post",
+        "tituloGuiones" : "my-second-post",
+        "descripcion" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis eos ex explicabo fugit laboriosam nihil officia quia quos. Aperiam beatae culpa deleniti ex ipsam labore laudantium minima mollitia odio sunt?",
+        "post" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis eos ex explicabo fugit laboriosam nihil officia quia quos. Aperiam beatae culpa deleniti ex ipsam labore laudantium minima mollitia odio sunt?",
+        "estado" : "06/08/2021",
+        "pinned" : true
+    }
+]

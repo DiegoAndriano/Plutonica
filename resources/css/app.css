@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.appear{
+    @apply transform scale-90 translate-y-5
+}
+.showElement {
+    @apply transition transform ease-in-out duration-700 opacity-100 scale-100 translate-y-0
+
+}
