@@ -10,23 +10,83 @@ class ArticuloController extends Controller
 {
     public function index()
     {
-        return view('articulos.index',
-            [
-                'articulos' => Articulo::todos()
-            ]
-        );
+        $articulos = Articulo::wherePublished(true)->get();
+
+        return view('articulos.index', compact($articulos));
     }
 
-    public function show($titulo)
+    public function store()
     {
-        $comentarios = Comentario::with('invitado')->whereArticulo($titulo)->get();
-        $megustas = MeGusta::with('invitado')->whereArticulo($titulo)->get();
+        if(request()->user()->cannot('create', Articulo::class)){
+            abort(403);
+        }
 
-        return view('components._articulos.' . $titulo, [
-            'articulo' => Articulo::buscar($titulo),
-            'comentarios' => $comentarios,
-            'megustas' => $megustas,
+        $attrs = request()->validate([
+            'titulo' => 'required|max:255|min:3',
+            'descripcion' => 'required|max:255|min:3',
+            'articulo' => 'required',
+            'fecha_publicacion' => 'nullable|date',
+            'publicado' => 'required|boolean',
+            'fijado' => 'required|boolean',
         ]);
+
+        Articulo::create($attrs);
+
+        return redirect(route('articulos.index'));
+    }
+
+    public function create()
+    {
+        if(request()->user()->cannot('create', Articulo::class)){
+            abort(403);
+        }
+
+        return view('articulos.create');
+    }
+
+    public function update(Articulo $articulo)
+    {
+        if(request()->user()->cannot('update', Articulo::class)){
+            abort(403);
+        }
+
+        $attrs = request()->validate([
+            'titulo' => 'required|max:255|min:3',
+            'descripcion' => 'required|max:255|min:3',
+            'articulo' => 'required',
+            'fecha_publicacion' => 'nullable|date',
+            'publicado' => 'required|boolean',
+            'fijado' => 'required|boolean',
+        ]);
+
+        $articulo->update($attrs);
+
+        return redirect(route('articulos.index'));
+    }
+
+    public function edit()
+    {
+        if(request()->user()->cannot('update', Articulo::class)){
+            abort(403);
+        }
+
+        return view('articulos.edit');
+    }
+
+    public function destroy(Articulo $articulo)
+    {
+        if(request()->user()->cannot('destroy', Articulo::class)){
+            abort(403);
+        }
+
+        $articulo->delete();
+
+        return redirect(route('articulos.index'));
+    }
+
+    public function show(Articulo $articulo)
+    {
+        return view('articulos.show', compact($articulo));
     }
 
 }

@@ -2,19 +2,19 @@
 
 namespace Tests;
 
-use App\Models\Invitado;
+use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected function signInAsInvitado($invitado = null)
+    protected function signInAsUser($user = null)
     {
-        $invitado = $invitado ?: Invitado::factory()->create();
+        $user = $user ?: User::factory()->create();
 
-        $this->actingAs($invitado);
+        $this->actingAs($user);
 
-        return $invitado;
+        return $user;
     }
 }

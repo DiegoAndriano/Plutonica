@@ -29,6 +29,7 @@ class ComentarioPolicy
      */
     public function update(Authenticatable $user, Comentario $comentario)
     {
-        return $user->is($comentario->invitado()->first());
+        return true;
+//        $user->is($comentario->invitado()->first());
     }
 }

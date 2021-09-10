@@ -2,47 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\File;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class Articulo extends Model
 {
-    public $titulo;
-    public $tituloGuionado;
-    public $cuerpo;
-    public $descripcion;
-    public $pinned;
+    use HasFactory;
 
-    public function __construct($cuerpo, $titulo, $tituloGuionado,$pinned, $descripcion)
+    protected $fillable = [
+        'titulo',
+        'descripcion',
+        'articulo',
+        'fecha_publicacion',
+        'publicado',
+        'fijado',
+    ];
+
+    public function comentarios()
     {
-        $this->cuerpo = $cuerpo;
-        $this->pinned = $pinned;
-        $this->titulo = $titulo;
-        $this->tituloGuionado = $tituloGuionado;
-        $this->descripcion = $descripcion;
+        return $this->hasMany(Comentario::class);
     }
 
-
-    public static function todos()
+    public function megustas()
     {
-        return collect(File::files(resource_path('views/components/_articulos')))
-            ->map(function ($file) {
-                return YamlFrontMatter::parseFile($file);
-            })
-            ->map(function ($doc) {
-                return new Articulo(
-                    $doc->body(),
-                    $doc->titulo,
-                    $doc->tituloGuionado,
-                    $doc->pinned,
-                    $doc->descripcion
-                );
-            })->sortByDesc('date');
-    }
-
-    public static function buscar($tituloGuionado)
-    {
-        return static::todos()->firstWhere('tituloGuionado', $tituloGuionado);
+        return $this->hasMany(Megusta::class);
     }
 }

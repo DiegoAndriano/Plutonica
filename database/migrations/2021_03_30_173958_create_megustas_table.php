@@ -17,7 +17,6 @@ class CreateMegustasTable extends Migration
             $table->id();
             $table->string('articulo');
             $table->integer('cantidad')->default(1);
-            $table->foreignId('invitado_id');
             $table->timestamps();
         });
     }

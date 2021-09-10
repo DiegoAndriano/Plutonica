@@ -10,14 +10,8 @@ class Comentario extends Model
     use HasFactory;
 
     protected $fillable = [
-      'invitado_id',
       'comentario',
       'articulo',
     ];
-
-    public function invitado()
-    {
-        return $this->belongsTo(Invitado::class);
-    }
 
 }

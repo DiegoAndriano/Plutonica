@@ -18,8 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('articulos')->group(function(){
-    Route::get('/', [ArticuloController::class, 'index']);
+    Route::get('/', [ArticuloController::class, 'index'])->name('articulos.index');
+    Route::post('/', [ArticuloController::class, 'store'])->name('articulos.store');
+    Route::get('/create', [ArticuloController::class, 'create'])->name('articulos.create');
+    Route::get('/edit/{articulo}', [ArticuloController::class, 'edit'])->name('articulos.edit');
     Route::get('/{articulo}', [ArticuloController::class, 'show']);
+
+    Route::patch('/{articulo}', [ArticuloController::class, 'update'])->name('articulos.update');
+    Route::delete('/{articulo}', [ArticuloController::class, 'destroy'])->name('articulos.detroy');
 
     Route::post('/{articulo}/like',[MegustaController::class, 'store']);
 

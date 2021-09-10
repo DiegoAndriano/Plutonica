@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Articulo;
 use App\Models\Comentario;
-use App\Services\CrearInvitado;
 
 class ComentarioController extends Controller
 {
@@ -17,18 +16,11 @@ class ComentarioController extends Controller
             'comentario' => 'required|string',
         ]);
 
-        if(auth()->guest()) {
-            $crearinvitado = new CrearInvitado($attributes['nombre'], $attributes['email']);
-            $crearinvitado->perform();
-        }
-
         Comentario::create([
             'articulo' => $attributes['articulo'],
             'comentario' => $attributes['comentario'],
-            'invitado_id' => auth()->id(),
         ]);
 
-        //crear notificacion flash() que diga ¡Éxito! o algo asi lindo.
         return redirect(request()->path());
     }
 
