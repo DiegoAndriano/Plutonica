@@ -9,6 +9,7 @@ class MegustaController extends Controller
 {
     public function store()
     {
+        dd(request()->session()->getId());
         $attributes = request()->validate([
             'articulo' => 'required|string|in:' . Articulo::all()->pluck('tituloGuionado')->implode(','),
         ]);

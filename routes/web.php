@@ -27,7 +27,7 @@ Route::prefix('articulos')->group(function(){
     Route::patch('/{articulo}', [ArticuloController::class, 'update'])->name('articulos.update');
     Route::delete('/{articulo}', [ArticuloController::class, 'destroy'])->name('articulos.detroy');
 
-    Route::post('/{articulo}/like',[MegustaController::class, 'store']);
+    Route::post('/{articulo}/like',[MegustaController::class, 'store'])->name('megusta.store');
 });
 
 Route::prefix('comentarios')->group(function(){

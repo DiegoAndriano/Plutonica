@@ -27,8 +27,9 @@ class ArticuloComentarioTest extends TestCase
         ];
 
         $this
+            ->followingRedirects()
             ->post('/comentarios/' . $articulo->id, $attrs)
-            ->assertRedirect();
+            ->assertSee($attrs['comentario']);
 
         $this->assertDatabaseHas('comentarios', ['comentario' => $attrs['comentario']]);
     }

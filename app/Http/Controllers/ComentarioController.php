@@ -22,15 +22,19 @@ class ComentarioController extends Controller
             'comentario' => $attrs['comentario'],
         ]);
 
-        return redirect(request()->path());
+        return redirect(route('articulos.index', $attrs['articulo']));
     }
 
     public function destroy(Comentario $comentario)
     {
-        $this->authorize('destroy', $comentario);
+        if(request()->user()->cannot('destroy', $comentario)){
+            abort(403);
+        }
+        $articulo_id = $comentario->articulo()->first()->id;
+
         $comentario->delete();
 
-        return redirect(request()->path());
+        return redirect(route('articulos.index', $articulo_id));
     }
 
 }

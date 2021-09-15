@@ -30,8 +30,10 @@ class ArticuloTest extends TestCase
             ->assertOk();
 
 
-        $this->post('articulos', $attrs)
-            ->assertRedirect();
+        $this
+            ->followingRedirects()
+            ->post('articulos', $attrs)
+            ->assertSee($attrs['titulo']);
 
         $this->assertDatabaseHas('articulos', $attrs);
     }
@@ -56,8 +58,10 @@ class ArticuloTest extends TestCase
         $this->get('articulos/edit/' . $articulo->id, $attrs)
             ->assertOk();
 
-        $this->patch('articulos/' . $articulo->id, $attrs)
-            ->assertRedirect();
+        $this
+            ->followingRedirects()
+            ->patch('articulos/' . $articulo->id, $attrs)
+            ->assertSee($attrs['titulo']);
 
         $this->assertDatabaseHas('articulos', $attrs);
     }
@@ -70,8 +74,10 @@ class ArticuloTest extends TestCase
 
         $articulo = Articulo::factory()->create();
 
-        $this->delete('articulos/' . $articulo->id)
-            ->assertRedirect();
+        $this
+            ->followingRedirects()
+            ->delete('articulos/' . $articulo->id)
+            ->assertDontSee($articulo->titulo);
 
         $this->assertDatabaseMissing('articulos', ['id' => $articulo->id]);
     }
@@ -94,8 +100,12 @@ class ArticuloTest extends TestCase
         $this->get('articulos/create')
             ->assertForbidden();
 
-        $this->post('articulos', $attrs)
-            ->assertForbidden();
+        $this
+            ->followingRedirects()
+            ->post('articulos', $attrs)
+            ->assertForbidden()
+            ->assertDontSee($attrs['titulo']);
+
     }
 
     /** @test */
@@ -118,7 +128,9 @@ class ArticuloTest extends TestCase
         $this->get('articulos/edit/' . $articulo->id, $attrs)
             ->assertForbidden();
 
-        $this->patch('articulos/' . $articulo->id, $attrs)
+        $this
+            ->followingRedirects()
+            ->patch('articulos/' . $articulo->id, $attrs)
             ->assertForbidden();
 
         $this->assertDatabaseMissing('articulos', $attrs);
@@ -133,7 +145,9 @@ class ArticuloTest extends TestCase
 
         $articulo = Articulo::factory()->create();
 
-        $this->delete('articulos/' . $articulo->id)
+        $this
+            ->followingRedirects()
+            ->delete('articulos/' . $articulo->id)
             ->assertForbidden();
 
         $this->assertDatabaseHas('articulos', ['id' => $articulo->id]);

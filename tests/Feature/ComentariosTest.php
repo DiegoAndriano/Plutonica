@@ -28,8 +28,9 @@ class ComentariosTest extends TestCase
         ];
 
         $this
+            ->followingRedirects()
             ->post('/comentarios/' . $articulo->id, $attrs)
-            ->assertRedirect();
+            ->assertSee($attrs['comentario']);
 
         $this->assertDatabaseHas('comentarios', ['comentario' => $attrs['comentario']]);
     }
@@ -42,7 +43,10 @@ class ComentariosTest extends TestCase
         $user = User::factory(['isAdmin' => true])->create();
         $this->signInAsUser($user);
 
-        $this->delete('/comentarios/ ' . $comentario->id);
+        $this
+            ->followingRedirects()
+            ->delete('/comentarios/ ' . $comentario->id)
+            ->assertDontSee($comentario->comentario);
 
         $this->assertDatabaseMissing('comentarios', ['comentario' => $comentario->comentario]);
     }
@@ -55,7 +59,10 @@ class ComentariosTest extends TestCase
         $user = User::factory(['isAdmin' => false])->create();
         $this->signInAsUser($user);
 
-        $this->delete('/comentarios/ ' . $comentario->id);
+        $this
+            ->followingRedirects()
+            ->delete('/comentarios/ ' . $comentario->id)
+            ->assertForbidden();
 
         $this->assertDatabaseHas('comentarios', ['comentario' => $comentario->comentario]);
     }

@@ -10,9 +10,9 @@ class ArticuloController extends Controller
 {
     public function index()
     {
-        $articulos = Articulo::wherePublished(true)->get();
+        $articulos = Articulo::with('comentarios')->get();
 
-        return view('articulos.index', compact($articulos));
+        return view('articulos.index', compact('articulos'));
     }
 
     public function store()
