@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Articulo;
 use App\Models\Comentario;
 use App\Models\Invitado;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,40 +23,13 @@ class ComentarioFactory extends Factory
      * @param null $articulo
      * @return array
      */
-    public function definition()
+    public function definition($articulo = null)
     {
         return [
-            'articulo' => 'my-first-post',
+            'articulo_id' => $articulo ?? Articulo::factory()->create(),
             'comentario' => $this->faker->sentences(3, true),
-            'invitado_id' => Invitado::factory()->create()->id,
+            'nombre' => $this->faker->name,
+            'email' => $this->faker->email,
         ];
-    }
-
-    public function withInvitado($email = null, $nombre = null)
-    {
-        return $this->state(function (array $attributes) use ($email, $nombre) {
-            if ($email && $nombre) {
-                return [
-                    'invitado_id' => Invitado::factory($nombre)->withEmail($email)->create()->id,
-                ];
-            }
-            if ($email) {
-                return [
-                    'invitado_id' => Invitado::factory($nombre)->withEmail($email)->create()->id
-                ];
-            }
-            return [
-                'invitado_id' => Invitado::factory($nombre)->create()->id
-            ];
-        });
-    }
-
-    public function withArticulo($articulo = null)
-    {
-        return $this->state(function (array $attributes) use ($articulo) {
-            return [
-                'articulo' => $articulo ? $articulo : 'my-first-post',
-            ];
-        });
     }
 }

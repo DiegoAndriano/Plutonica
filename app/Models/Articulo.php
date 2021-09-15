@@ -9,14 +9,7 @@ class Articulo extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'titulo',
-        'descripcion',
-        'articulo',
-        'fecha_publicacion',
-        'publicado',
-        'fijado',
-    ];
+    protected $guarded = [];
 
     public function comentarios()
     {

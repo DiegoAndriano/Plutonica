@@ -28,10 +28,11 @@ Route::prefix('articulos')->group(function(){
     Route::delete('/{articulo}', [ArticuloController::class, 'destroy'])->name('articulos.detroy');
 
     Route::post('/{articulo}/like',[MegustaController::class, 'store']);
+});
 
-    Route::post('/{articulo}', [ComentarioController::class, 'store']);
-    Route::patch('/{articulo}/{comentario}', [ComentarioController::class, 'update']);
-    Route::delete('/{articulo}/{comentario}', [ComentarioController::class, 'delete']);
+Route::prefix('comentarios')->group(function(){
+    Route::post('/{comentario}', [ComentarioController::class, 'store'])->name('comentarios.store');
+    Route::delete('/{comentario}', [ComentarioController::class, 'destroy'])->name('comentarios.destroy');
 });
 
 Auth::routes();

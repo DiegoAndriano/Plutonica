@@ -9,41 +9,25 @@ class ComentarioController extends Controller
 {
     public function store()
     {
-        $attributes = request()->validate([
-            'articulo' => 'required|string|in:' . Articulo::all()->pluck('tituloGuionado')->implode(','),
+        $attrs = request()->validate([
+            'articulo' => 'required|exists:articulos,id',
             'nombre' => 'required|string',
             'email' => 'nullable|email',
             'comentario' => 'required|string',
         ]);
 
-        Comentario::create([
-            'articulo' => $attributes['articulo'],
-            'comentario' => $attributes['comentario'],
+        Articulo::whereId($attrs['articulo'])->first()->comentarios()->create([
+            'nombre' => $attrs['nombre'],
+            'email' => $attrs['email'],
+            'comentario' => $attrs['comentario'],
         ]);
 
         return redirect(request()->path());
     }
 
-    public function update($slug, Comentario $comentario)
+    public function destroy(Comentario $comentario)
     {
-        $this->authorize('update', $comentario);
-
-        $attributes = request()->validate([
-            'articulo' => 'required|string|in:' . Articulo::all()->pluck('tituloGuionado')->implode(','),
-            'nombre' => 'required|string',
-            'email' => 'nullable|email',
-            'comentario' => 'required|string',
-        ]);
-
-        $comentario->update($attributes);
-
-        return redirect(request()->path());
-    }
-
-    public function delete($slug, Comentario $comentario)
-    {
-        $this->authorize('update', $comentario);
-
+        $this->authorize('destroy', $comentario);
         $comentario->delete();
 
         return redirect(request()->path());

@@ -28,21 +28,21 @@ class ArticuloPolicy
      */
     public function before(User $user, $ability)
     {
-        return $user->admin;
+        return $user->isAdmin;
     }
 
     public function create()
     {
-        return auth()->user()->admin;
+        return auth()->user()->isAdmin;
     }
 
     public function update()
     {
-        return auth()->user()->admin;
+        return auth()->user()->isAdmin;
     }
 
     public function destroy()
     {
-        return auth()->user()->admin;
+        return auth()->user()->isAdmin;
     }
 }

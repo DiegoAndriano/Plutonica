@@ -23,13 +23,12 @@ class ComentarioPolicy
     }
 
     /**
-     * @param Authenticatable $user
+     * @param User $user
      * @param Comentario $comentario
      * @return bool
      */
-    public function update(Authenticatable $user, Comentario $comentario)
+    public function destroy(User $user, Comentario $comentario)
     {
-        return true;
-//        $user->is($comentario->invitado()->first());
+        return auth()->user()->isAdmin;
     }
 }
