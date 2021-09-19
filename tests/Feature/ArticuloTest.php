@@ -90,6 +90,7 @@ class ArticuloTest extends TestCase
     /** @test */
     public function un_articulo_puede_ser_editado()
     {
+        $this->withoutExceptionHandling();
         $user = User::factory(['isAdmin' => true])->create();
         $this->signInAsUser($user);
 
@@ -101,7 +102,8 @@ class ArticuloTest extends TestCase
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
             'publicado' => true,
-            'fijado' => true
+            'fijado' => true,
+            'categoria' => null,
         ];
 
         $this->get('articulos/edit/' . $articulo->id, $attrs)
@@ -111,6 +113,15 @@ class ArticuloTest extends TestCase
             ->followingRedirects()
             ->patch('articulos/' . $articulo->id, $attrs)
             ->assertSee($attrs['titulo']);
+
+        $attrs = [
+            'titulo' => 'Editado',
+            'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
+            'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
+            'fecha_publicacion' => null,
+            'publicado' => true,
+            'fijado' => true,
+        ];
 
         $this->assertDatabaseHas('articulos', $attrs);
     }

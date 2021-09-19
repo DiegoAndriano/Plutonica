@@ -42,7 +42,8 @@ class ArticuloController extends Controller
             'publicado' => $attrs['publicado'],
             'fijado' => $attrs['fijado'],
         ]);
-        
+
+        //todo: Hay una forma mejor de hacer esto?
         $attrs['categoria'] !== null ? CategoriaArticuloStrategy::handle(Categoria::whereNombre($attrs['categoria']), $articulo) : '';
 
         return redirect(route('articulos.index'));
@@ -74,8 +75,8 @@ class ArticuloController extends Controller
             'categoria' => 'nullable|max:35',
         ]);
 
+        //todo: Hay una forma mejor de hacer esto?
         $attrs['categoria'] !== null ? CategoriaArticuloStrategy::handle(Categoria::whereNombre($attrs['categoria']), $articulo) : '';
-
 
         $articulo->update([
             'titulo' => $attrs['titulo'],
@@ -85,7 +86,6 @@ class ArticuloController extends Controller
             'publicado' => $attrs['publicado'],
             'fijado' => $attrs['fijado'],
         ]);
-
         return redirect(route('articulos.index'));
     }
 
