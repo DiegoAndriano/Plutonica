@@ -20,4 +20,9 @@ class Articulo extends Model
     {
         return $this->hasMany(Megusta::class);
     }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 }

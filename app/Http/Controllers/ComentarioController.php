@@ -34,7 +34,7 @@ class ComentarioController extends Controller
 
         $comentario->delete();
 
-        return redirect(route('articulos.index', $articulo_id));
+        return redirect(route('articulos.index'));
     }
 
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Articulo;
+use App\Models\Categoria;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ArticuloFactory extends Factory
@@ -19,7 +20,7 @@ class ArticuloFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition($categoria = null)
     {
         return [
             'titulo' => $this->faker->title,
@@ -27,7 +28,8 @@ class ArticuloFactory extends Factory
             'articulo' => $this->faker->paragraphs(3, true),
             'fecha_publicacion' => null,
             'publicado' => false,
-            'fijado' => false
+            'fijado' => false,
+            'categoria_id' => $categoria ?? Categoria::factory()->create()
         ];
     }
 }

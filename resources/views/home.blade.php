@@ -36,6 +36,7 @@
                 pariatur
                 quis. At cumque, cupiditate enim, expedita facilis magni, maiores nam quasi quia quod sunt.
             </p>
+
             <div class="flex justify-evenly mt-6 items-center">
                 <button
                     class="text-center w-1/3 z-20 font-display flex justify-center font-semibold tracking-wide py-3 cursor-pointer transition ease-in-out duration-100 bg-emerald-500 text-emerald-900 rounded-full">

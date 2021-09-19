@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMegustasTable extends Migration
+class CreateCategoriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateMegustasTable extends Migration
      */
     public function up()
     {
-        Schema::create('megustas', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('articulo_id');
-            $table->integer('cantidad')->default(1);
-            $table->string('likes_key');
+            $table->string('nombre')->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateMegustasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('megustas');
+        Schema::dropIfExists('categorias');
     }
 }

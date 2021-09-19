@@ -17,7 +17,7 @@ class CreateComentariosTable extends Migration
             $table->id();
             $table->string('nombre')->nullable();
             $table->string('email')->nullable();
-            $table->foreignId('articulo_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('articulo_id');
             $table->text('comentario');
             $table->timestamps();
         });

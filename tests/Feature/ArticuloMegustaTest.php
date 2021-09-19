@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Articulo;
+use App\Models\Megusta;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -19,69 +20,38 @@ class ArticuloMegustaTest extends TestCase
 
         $articulo = Articulo::factory()->create();
 
-        $this->post('articulos/' . $articulo->id . '/like');
-        $this->post('articulos/' . $articulo->id . '/like');
-        $this->post('articulos/' . $articulo->id . '/like');
-    }
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->assertDatabaseHas('megustas', ['id' => 1, 'cantidad' => 1]);
 
-    /** @test */
-    public function un_articulo_puede_ser_liked_multiples_veces_por_un_invitado_no_registrado()
-    {
-        $this->withoutExceptionHandling();
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->assertDatabaseHas('megustas', ['id' => 1, 'cantidad' => 2]);
 
-        $attrs = [
-            'articulo' => 'my-first-post',
-        ];
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->assertDatabaseHas('megustas', ['id' => 1, 'cantidad' => 3]);
+        $this->assertDatabaseMissing('megustas', ['id' => 2]);
 
-        $this->followingRedirects()
-            ->post('/articulos/my-first-post/like', $attrs)
-            ->assertSee('Me Gusta');
-
-        $this->assertDatabaseHas('megustas', [
-            'articulo' => 'my-first-post',
-            'cantidad' => 1,
-        ]);
-
-        $this->post('/articulos/my-first-post/like', $attrs);
-
-        $this->assertDatabaseHas('megustas', [
-            'articulo' => 'my-first-post',
-            'cantidad' => 2,
-        ]);
     }
 
     /** @test */
     public function un_articulo_puede_ser_liked_un_maximo_de_10_veces_por_un_invitado_no_registrado()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory(['isAdmin' => true])->create();
+        $this->signInAsUser($user);
 
-        $attrs = [
-            'articulo' => 'my-first-post',
-        ];
+        $articulo = Articulo::factory()->create();
 
-        $this->followingRedirects()
-            ->post('/articulos/my-first-post/like', $attrs)
-            ->assertSee('Me Gusta');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->postJson('articulos/' . $articulo->id . '/like');
+        $this->assertDatabaseHas('megustas', ['id' => 1, 'cantidad' => 10]);
 
-        $this->assertDatabaseHas('megustas', [
-            'articulo' => 'my-first-post',
-            'cantidad' => 1,
-        ]);
-
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-        $this->post('/articulos/my-first-post/like', $attrs);
-
-        $this->assertDatabaseHas('megustas', [
-            'articulo' => 'my-first-post',
-            'cantidad' => 10,
-        ]);
     }
 }

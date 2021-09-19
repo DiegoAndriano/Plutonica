@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Articulo;
+use App\Models\Categoria;
 use App\Models\comentario;
 use App\Models\megusta;
+use App\Strategies\CategoriaArticuloStrategy;
+use Tests\Feature\CategoriaTest;
 
 class ArticuloController extends Controller
 {
@@ -17,7 +20,7 @@ class ArticuloController extends Controller
 
     public function store()
     {
-        if(request()->user()->cannot('create', Articulo::class)){
+        if (request()->user()->cannot('create', Articulo::class)) {
             abort(403);
         }
 
@@ -28,16 +31,27 @@ class ArticuloController extends Controller
             'fecha_publicacion' => 'nullable|date',
             'publicado' => 'required|boolean',
             'fijado' => 'required|boolean',
+            'categoria' => 'nullable|max:35',
         ]);
 
-        Articulo::create($attrs);
+        $articulo = Articulo::create([
+            'titulo' => $attrs['titulo'],
+            'descripcion' => $attrs['descripcion'],
+            'articulo' => $attrs['articulo'],
+            'fecha_publicacion' => $attrs['fecha_publicacion'],
+            'publicado' => $attrs['publicado'],
+            'fijado' => $attrs['fijado'],
+        ]);
+        
+        $attrs['categoria'] !== null ? CategoriaArticuloStrategy::handle(Categoria::whereNombre($attrs['categoria']), $articulo) : '';
 
         return redirect(route('articulos.index'));
     }
 
+
     public function create()
     {
-        if(request()->user()->cannot('create', Articulo::class)){
+        if (request()->user()->cannot('create', Articulo::class)) {
             abort(403);
         }
 
@@ -46,7 +60,7 @@ class ArticuloController extends Controller
 
     public function update(Articulo $articulo)
     {
-        if(request()->user()->cannot('update', Articulo::class)){
+        if (request()->user()->cannot('update', Articulo::class)) {
             abort(403);
         }
 
@@ -57,16 +71,27 @@ class ArticuloController extends Controller
             'fecha_publicacion' => 'nullable|date',
             'publicado' => 'required|boolean',
             'fijado' => 'required|boolean',
+            'categoria' => 'nullable|max:35',
         ]);
 
-        $articulo->update($attrs);
+        $attrs['categoria'] !== null ? CategoriaArticuloStrategy::handle(Categoria::whereNombre($attrs['categoria']), $articulo) : '';
+
+
+        $articulo->update([
+            'titulo' => $attrs['titulo'],
+            'descripcion' => $attrs['descripcion'],
+            'articulo' => $attrs['articulo'],
+            'fecha_publicacion' => $attrs['fecha_publicacion'],
+            'publicado' => $attrs['publicado'],
+            'fijado' => $attrs['fijado'],
+        ]);
 
         return redirect(route('articulos.index'));
     }
 
     public function edit()
     {
-        if(request()->user()->cannot('update', Articulo::class)){
+        if (request()->user()->cannot('update', Articulo::class)) {
             abort(403);
         }
 
@@ -75,7 +100,7 @@ class ArticuloController extends Controller
 
     public function destroy(Articulo $articulo)
     {
-        if(request()->user()->cannot('destroy', Articulo::class)){
+        if (request()->user()->cannot('destroy', Articulo::class)) {
             abort(403);
         }
 

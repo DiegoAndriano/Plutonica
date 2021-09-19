@@ -1,12 +1,13 @@
 <x-app>
     @foreach($articulos as $articulo)
         {{ $articulo->titulo }}
+        {{ $articulo->categoria()->first() ? $articulo->categoria()->first()->nombre : ''}}
         @foreach($articulo->comentarios()->get() as $comentario)
             {{ $comentario->comentario }}
         @endforeach
     @endforeach
 
-    {{--    <div class="max-w-lg mx-auto">--}}
+        {{--    <div class="max-w-lg mx-auto">--}}
     {{--        @foreach($articulos as $articulo)--}}
     {{--            @if($articulo->pinned)--}}
     {{--                <div class="rounded-lg bg-white my-3 py-6 px-10">--}}

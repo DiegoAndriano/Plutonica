@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Articulo;
+use App\Models\Categoria;
 use App\Models\Comentario;
 use App\Policies\ArticuloPolicy;
+use App\Policies\CategoriaPolicy;
 use App\Policies\ComentarioPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -19,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
          Comentario::class => ComentarioPolicy::class,
          Articulo::class => ArticuloPolicy::class,
+         Categoria::class => CategoriaPolicy::class,
     ];
 
     /**

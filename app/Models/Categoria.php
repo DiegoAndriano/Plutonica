@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Megusta extends Model
+class Categoria extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function articulo()
+    public function categorias()
     {
-        return $this->belongsTo(Articulo::class);
+        return $this->hasMany(Articulo::class);
     }
 }
