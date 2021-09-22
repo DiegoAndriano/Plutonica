@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\MegustaController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +41,7 @@ Route::prefix('categorias')->group(function(){
     Route::patch('/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update');
     Route::delete('/{categoria}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
 });
+
+Route::post('upload', [UploadController::class, 'store'])->name('upload.store');
 
 Auth::routes();

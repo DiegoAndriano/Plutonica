@@ -17,10 +17,10 @@ class CreateArticulosTable extends Migration
             $table->id();
             $table->foreignId('categoria_id')->nullable();
             $table->string('titulo');
+            $table->string('portada');
             $table->text('descripcion');
             $table->text('articulo');
             $table->dateTime('fecha_publicacion')->nullable();
-            $table->boolean('publicado');
             $table->boolean('fijado');
             $table->timestamps();
         });

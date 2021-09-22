@@ -18,6 +18,7 @@ class ArticuloFactory extends Factory
     /**
      * Define the model's default state.
      *
+     * @param null $categoria
      * @return array
      */
     public function definition($categoria = null)
@@ -25,9 +26,9 @@ class ArticuloFactory extends Factory
         return [
             'titulo' => $this->faker->title,
             'descripcion' => $this->faker->paragraph(2),
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'articulo' => $this->faker->paragraphs(3, true),
             'fecha_publicacion' => null,
-            'publicado' => false,
             'fijado' => false,
             'categoria_id' => $categoria ?? Categoria::factory()->create()
         ];

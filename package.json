@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "filepond": "^4.29.1",
         "in-viewport": "^3.6.0",
         "particles.js": "^2.0.0"
     }

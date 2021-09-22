@@ -21,12 +21,13 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Mi artículo de prueba',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
             'categoria' => $cat->nombre,
+            'megusta' => 10,
         ];
 
         $this->get('articulos/create')
@@ -40,14 +41,15 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Mi artículo de prueba',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
         ];
 
         $this->assertDatabaseHas('articulos', $attrs);
+//        $this->assertTrue();
     }
 
     /** @test */
@@ -58,12 +60,13 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Mi artículo de prueba',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
             'categoria' => null,
+            'megusta' => 10
         ];
 
         $this->get('articulos/create')
@@ -77,10 +80,10 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Mi artículo de prueba',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
         ];
 
@@ -98,10 +101,10 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Editado',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
             'categoria' => null,
         ];
@@ -116,10 +119,10 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Editado',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
         ];
 
@@ -136,12 +139,12 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Editado',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
-            'categoria' => 'De gatitos y de perritos.'
+            'categoria' => 'De gatitos y de perritos.',
         ];
 
         $this->get('articulos/edit/' . $articulo->id, $attrs)
@@ -154,10 +157,10 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Editado',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
         ];
 
@@ -189,10 +192,10 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Mi artículo de prueba',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true
         ];
 
@@ -217,10 +220,10 @@ class ArticuloTest extends TestCase
 
         $attrs = [
             'titulo' => 'Editado',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true
         ];
 

@@ -18,12 +18,13 @@ class CategoriaTest extends TestCase
 
         $attrs = [
             'titulo' => 'Mi artículo de prueba',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
             'categoria' => 'Gatitos y perritos.',
+            'megusta' => 10,
         ];
 
         $this->get('articulos/create')
@@ -38,10 +39,10 @@ class CategoriaTest extends TestCase
 
         $attrs = [
             'titulo' => 'Mi artículo de prueba',
+            'portada' => 'images/MQQi4TaLIrkTJaEq6UE9NgZeErU66ppncD0POjeJ.jpg',
             'descripcion' => 'Este es un pequeño artículo de una pequeña prueba',
             'articulo' => 'lorem ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum',
             'fecha_publicacion' => null,
-            'publicado' => true,
             'fijado' => true,
         ];
 

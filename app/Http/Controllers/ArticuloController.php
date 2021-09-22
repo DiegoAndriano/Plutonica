@@ -28,10 +28,11 @@ class ArticuloController extends Controller
             'titulo' => 'required|max:255|min:3',
             'descripcion' => 'required|max:255|min:3',
             'articulo' => 'required',
+            'portada' => 'required',
             'fecha_publicacion' => 'nullable|date',
-            'publicado' => 'required|boolean',
             'fijado' => 'required|boolean',
             'categoria' => 'nullable|max:35',
+            'megusta' => 'numeric|required',
         ]);
 
         $articulo = Articulo::create([
@@ -39,12 +40,18 @@ class ArticuloController extends Controller
             'descripcion' => $attrs['descripcion'],
             'articulo' => $attrs['articulo'],
             'fecha_publicacion' => $attrs['fecha_publicacion'],
-            'publicado' => $attrs['publicado'],
             'fijado' => $attrs['fijado'],
+            'portada' => $attrs['portada'],
         ]);
 
         //todo: Hay una forma mejor de hacer esto?
         $attrs['categoria'] !== null ? CategoriaArticuloStrategy::handle(Categoria::whereNombre($attrs['categoria']), $articulo) : '';
+
+        Megusta::create([
+            'articulo_id' => $articulo->id,
+            'cantidad' => $attrs['megusta'],
+            'likes_key' => 1000001,
+        ]);
 
         return redirect(route('articulos.index'));
     }
@@ -70,9 +77,9 @@ class ArticuloController extends Controller
             'descripcion' => 'required|max:255|min:3',
             'articulo' => 'required',
             'fecha_publicacion' => 'nullable|date',
-            'publicado' => 'required|boolean',
             'fijado' => 'required|boolean',
             'categoria' => 'nullable|max:35',
+            'portada' => 'required',
         ]);
 
         //todo: Hay una forma mejor de hacer esto?
@@ -83,8 +90,8 @@ class ArticuloController extends Controller
             'descripcion' => $attrs['descripcion'],
             'articulo' => $attrs['articulo'],
             'fecha_publicacion' => $attrs['fecha_publicacion'],
-            'publicado' => $attrs['publicado'],
             'fijado' => $attrs['fijado'],
+            'portada' => $attrs['portada'],
         ]);
         return redirect(route('articulos.index'));
     }
@@ -100,6 +107,7 @@ class ArticuloController extends Controller
 
     public function destroy(Articulo $articulo)
     {
+        //todo: Borrar imagen de portada.
         if (request()->user()->cannot('destroy', Articulo::class)) {
             abort(403);
         }
