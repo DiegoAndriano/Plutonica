@@ -44,7 +44,7 @@ class ArticuloController extends Controller
             'portada' => $attrs['portada'],
         ]);
 
-        //todo: Hay una forma mejor de hacer esto?
+        //todo: mejorar esto
         $attrs['categoria'] !== null ? CategoriaArticuloStrategy::handle(Categoria::whereNombre($attrs['categoria']), $articulo) : '';
 
         Megusta::create([
@@ -82,7 +82,7 @@ class ArticuloController extends Controller
             'portada' => 'required',
         ]);
 
-        //todo: Hay una forma mejor de hacer esto?
+        //todo: mejorar esto
         $attrs['categoria'] !== null ? CategoriaArticuloStrategy::handle(Categoria::whereNombre($attrs['categoria']), $articulo) : '';
 
         $articulo->update([
